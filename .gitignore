@@ -1,3 +1,9 @@
+# Aleph Default
+.DS_Store
+Thumbs.db
+.aleph/
+dist/
+
 # Logs
 logs
 *.log
