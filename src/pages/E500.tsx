@@ -1,9 +1,8 @@
 import Logo from "../components/logo.tsx";
 import React from "react";
 
-
 export default function E500() {
-  console.log('insinde of Error 500');
+  console.log("insinde of Error 500");
   return (
     <div className="page">
       <p className="logo">
@@ -14,4 +13,4 @@ export default function E500() {
       </h1>
     </div>
   );
-};
+}
