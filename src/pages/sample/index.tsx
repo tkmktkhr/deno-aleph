@@ -7,7 +7,7 @@ export default function Sample() {
   const [count, isSyncing, increase, decrease] = useCounter();
   const version = useDeno(() => Deno.version.deno);
 
-  // Called just once. This isn't called even get the page reload.
+  // useDeno fetches data at build time.
   const testData = useDeno(async () => {
     const a = await fetch("http://localhost:9001/search/accommodation/1000", {
       method: "POST",
@@ -29,22 +29,12 @@ export default function Sample() {
     // console.log(data.title.param);
 
     return data;
-  });
+  }, true);
 
-  // FIXME Can't get API response correctly.
-  // const every = async () => {
-  //   const a = await fetch("http://localhost:9001/search/accommodation/1000", {
-  //     method: "POST",
-  //   }).then((res) => res.body.getReader());
-  //   console.log(a);
-  //   console.log(a.body);
-  //   console.log(a.title);
-
-  //   return a;
-  // };
-  // console.log("------------------------");
-
+  console.log("Execute every() ------------------------");
+  // This is called after first rendering only once not whenever reloading a page.
   // every();
+  console.log("Executed every() ------------------------");
 
   return (
     <div className="page">
@@ -58,6 +48,30 @@ export default function Sample() {
       <h1>
         Welcome to use <strong>Aleph.js</strong>!
       </h1>
+      {/* Onclick event is not invoked. */}
+      <button onClick={every}>HEre is botton</button>
     </div>
   );
 }
+
+const every = async () => {
+// const every = async (e: MouseEvent) => {
+  // console.log(e);
+
+  const c = await fetch("http://localhost:9001/search/accommodation/1000", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: "Petting 🦕",
+      address: "Tokyo",
+    }),
+  });
+  const b = await c.json();
+  console.log(b);
+  console.log(b.name);
+  console.log(b.address);
+
+  return b;
+};
