@@ -9,34 +9,42 @@ export default function Sample() {
 
   // Called just once. This isn't called even get the page reload.
   const testData = useDeno(async () => {
-    const a = await fetch("http://localhost:9001/tests/100", {
-      method: "GET",
+    const a = await fetch("http://localhost:9001/search/accommodation/1000", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: "Petting 🦕",
+        address: "Tokyo",
+      }),
     });
+
     const data = await a.json();
     // }).then((res) => res.json()); // 無限ループ
     console.log("==========================");
     console.log(data); // Need to parse response data. Currently, result is -> { title: "[object Object].", contents: "content" }
-    console.log(data.title);
-    console.log(data.contents);
+    console.log(data.name);
+    console.log(data.address);
     // console.log(data.title.param);
 
     return data;
   });
 
   // FIXME Can't get API response correctly.
-  const every = async () => {
-    const a = await fetch("http://localhost:9001/tests/100", {
-      method: "GET",
-    }).then((res) => res.body.getReader());
-    console.log(a);
-    console.log(a.body);
-    console.log(a.title);
+  // const every = async () => {
+  //   const a = await fetch("http://localhost:9001/search/accommodation/1000", {
+  //     method: "POST",
+  //   }).then((res) => res.body.getReader());
+  //   console.log(a);
+  //   console.log(a.body);
+  //   console.log(a.title);
 
-    return a;
-  };
-  console.log("------------------------");
+  //   return a;
+  // };
+  // console.log("------------------------");
 
-  every();
+  // every();
 
   return (
     <div className="page">
