@@ -1,7 +1,7 @@
-import type { APIRequest } from 'aleph/types.ts'
+import type { APIRequest } from "aleph/types.ts";
 
-const store = globalThis as any
+const store = globalThis as any;
 
 export default async function handler(req: APIRequest) {
-  req.json({ count: store.$count || 0 })
+  req.json({ count: store.$count || 0 });
 }
